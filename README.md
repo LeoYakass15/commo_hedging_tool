@@ -71,36 +71,3 @@ in a certain price. The double-up swap is shown only for discussion.
 The workbook writes this as a one-page client pitch that updates when the inputs change:
 
 ![Pitch sheet](docs/pitch.png)
-
-## How the workbook works
-
-| Sheet | What you find |
-|---|---|
-| Pricer | client inputs, comparison of the six solutions with no hedge, scenario chart |
-| Pitch | one-page proposal for the treasurer, ready to print |
-| Schedule | month-by-month pricing: futures price, discount factor, volatility, option prices |
-| Scenarios | the price the airline pays with each solution if Brent moves from -45% to +45% |
-| Distribution | all simulated outcomes, from best to worst |
-| Market | futures curve, USD rates, volatilities and smile, editable |
-| Notes | conventions, method and limitations |
-
-To use it, download `Commo_Hedging_Tool.xlsm`, enable macros, and change the yellow cells
-(barrels, months, budget, Brent price, strikes, consumer or producer). Every structure reprices
-instantly. Two buttons do the rest:
-
-- **Solve zero-cost strikes** finds the strikes that make each structure free for the client.
-- **Run Monte Carlo** simulates 20,000 Brent paths to compute the statistics.
-
-## Method, in short
-
-- **Futures prices** come from the Brent curve (front month plus a spread for each maturity).
-- **Options** are priced with Black-76 (Black-Scholes on a futures price), using the volatility
-  smile quoted by the market (ATM, risk reversal, butterfly), so each strike gets its own vol.
-- **Zero-cost structures** are solved so that what the client buys and what the client sells
-  have the same value.
-- **Statistics** come from a Monte Carlo of Brent centred on the futures curve.
-- **Basis risk:** the airline buys jet fuel but the hedge is on Brent, so the crack spread
-  (jet minus Brent) stays open. A jet fuel swap would remove it, but it is less liquid.
-
-Market data is illustrative. Public references used for the case (airline hedging policies,
-ISDA confirmation templates, research on fuel hedging) are listed in the project notes.
